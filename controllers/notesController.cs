@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
-using System;
+
 
 [Route("api/[controller]")]
 [ApiController]
 public class NotesController : ControllerBase
 {
     private readonly INoteService _noteService;
+    private object _noteTableClient;
 
     public NotesController(INoteService noteService)
     {
@@ -35,6 +36,13 @@ public class NotesController : ControllerBase
     [HttpPost]
     public IActionResult Create(Note note)
     {
+        bool noteExists = _noteService.NoteExists(note.Title);
+
+        if (noteExists)
+        {
+            return Conflict(new { message = "A note with the same name already exists." });
+        }
+
         _noteService.CreateNote(note);
         return CreatedAtAction(nameof(Get), new { id = note.Id }, note);
     }
@@ -60,4 +68,5 @@ public class NotesController : ControllerBase
         _noteService.DeleteNote(id);
         return NoContent();
     }
+
 }

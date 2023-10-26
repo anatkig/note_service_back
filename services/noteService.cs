@@ -14,6 +14,7 @@ public interface INoteService
     void UpdateNote(Note note);
     void DeleteNote(string id);
     Note? GetNoteById(string id);
+    public bool NoteExists(string projectName);
 }
 
 public class NoteService : INoteService
@@ -67,5 +68,12 @@ public class NoteService : INoteService
     public void DeleteNote(string id)
     {
         _noteTableClient.DeleteEntity(NotePartitionKey, id);
+    }
+
+    public bool NoteExists(string noteTitle)
+    {
+
+        var projects = _noteTableClient.Query<Note>(filter: $"PartitionKey eq '{NotePartitionKey}'");
+        return projects.Any(p => p.Title == noteTitle);
     }
 }
