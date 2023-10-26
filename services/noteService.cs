@@ -36,7 +36,6 @@ public class NoteService : INoteService
     }
     public void CreateNote(Note note)
     {
-        note.PartitionKey = NotePartitionKey;
 
         if (string.IsNullOrEmpty(note.RowKey))
         {

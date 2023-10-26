@@ -12,6 +12,7 @@ public class Note : ITableEntity
         Title = string.Empty;
         Description = string.Empty;
         Status = string.Empty;
+        Priority = string.Empty;
     }
     const string partitionKey = "NotePartitionKey";
     public string PartitionKey { get; set; }

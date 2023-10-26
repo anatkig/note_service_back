@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 public class NotesController : ControllerBase
 {
     private readonly INoteService _noteService;
-    private object _noteTableClient;
 
     public NotesController(INoteService noteService)
     {
