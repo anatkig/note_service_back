@@ -23,3 +23,14 @@
 /Users/anatoliikiguradze/noteService/note_service_back/obj/Debug/net7.0/note_service_back.pdb
 /Users/anatoliikiguradze/noteService/note_service_back/obj/Debug/net7.0/note_service_back.genruntimeconfig.cache
 /Users/anatoliikiguradze/noteService/note_service_back/obj/Debug/net7.0/ref/note_service_back.dll
+/Users/anatoliikiguradze/noteService/note_service_back/bin/Debug/net7.0/Azure.Core.dll
+/Users/anatoliikiguradze/noteService/note_service_back/bin/Debug/net7.0/Azure.Data.Tables.dll
+/Users/anatoliikiguradze/noteService/note_service_back/bin/Debug/net7.0/Microsoft.Bcl.AsyncInterfaces.dll
+/Users/anatoliikiguradze/noteService/note_service_back/bin/Debug/net7.0/Microsoft.OpenApi.dll
+/Users/anatoliikiguradze/noteService/note_service_back/bin/Debug/net7.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/anatoliikiguradze/noteService/note_service_back/bin/Debug/net7.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/anatoliikiguradze/noteService/note_service_back/bin/Debug/net7.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/anatoliikiguradze/noteService/note_service_back/bin/Debug/net7.0/System.Memory.Data.dll
+/Users/anatoliikiguradze/noteService/note_service_back/obj/Debug/net7.0/note_service_back.csproj.AssemblyReference.cache
+/Users/anatoliikiguradze/noteService/note_service_back/obj/Debug/net7.0/note_service_back.MvcApplicationPartsAssemblyInfo.cs
+/Users/anatoliikiguradze/noteService/note_service_back/obj/Debug/net7.0/note_service_back.csproj.CopyComplete

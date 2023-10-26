@@ -41,6 +41,10 @@
             "Azure.Data.Tables": {
               "target": "Package",
               "version": "[12.8.1, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
             }
           },
           "imports": [

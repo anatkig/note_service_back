@@ -1,18 +1,38 @@
 using Azure;
 using Azure.Data.Tables;
-using System;
+using Microsoft.Extensions.Options;
 
-public class NoteService
+public class StorageConfig
 {
-    private readonly TableClient _tableClient;
+    public string? ConnectionString { get; set; }
+}
+
+public interface INoteService
+{
+    public List<Note> GetAllNotes();
+    void CreateNote(Note note);
+    void UpdateNote(Note note);
+    void DeleteNote(string id);
+    Note? GetNoteById(string id);
+}
+
+public class NoteService : INoteService
+{
+    private readonly TableClient _noteTableClient;
     private const string NotePartitionKey = "NotePartitionKey";
 
-    public NoteService(string connectionString)
+    public NoteService(IOptions<StorageConfig> storageConfig)
     {
-        _tableClient = new TableClient(connectionString, "Notes");
-        _tableClient.CreateIfNotExists();
+        var connectionString = storageConfig.Value.ConnectionString;
+        _noteTableClient = new TableClient(connectionString, "notes");
+        _noteTableClient.CreateIfNotExists();
     }
 
+    public List<Note> GetAllNotes()
+    {
+        var queryResultsFilter = _noteTableClient.Query<Note>(filter: $"PartitionKey eq '{NotePartitionKey}'");
+        return queryResultsFilter.ToList();
+    }
     public void CreateNote(Note note)
     {
         note.PartitionKey = NotePartitionKey;
@@ -22,26 +42,30 @@ public class NoteService
             note.RowKey = note.Id;
         }
 
-        _tableClient.AddEntity(note);
+        _noteTableClient.AddEntity(note);
     }
 
     public void UpdateNote(Note note)
     {
         note.PartitionKey = NotePartitionKey;
 
-        _tableClient.UpdateEntity(note, ETag.All, TableUpdateMode.Merge);
+        _noteTableClient.UpdateEntity(note, ETag.All, TableUpdateMode.Merge);
     }
 
-    public void CompleteNote(Note note)
+    public Note? GetNoteById(string id)
     {
-        note.PartitionKey = NotePartitionKey;
-
-        note.Status = "Completed";
-        UpdateNote(note);
+        try
+        {
+            return _noteTableClient.GetEntity<Note>(NotePartitionKey, id).Value;
+        }
+        catch (RequestFailedException ex) when (ex.Status == 404)
+        {
+            return null;
+        }
     }
 
     public void DeleteNote(string id)
     {
-        _tableClient.DeleteEntity(NotePartitionKey, id);
+        _noteTableClient.DeleteEntity(NotePartitionKey, id);
     }
 }
