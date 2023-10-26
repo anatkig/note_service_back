@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="../build/note_service_back.props" />
-</Project>
