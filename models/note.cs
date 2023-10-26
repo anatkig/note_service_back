@@ -1,12 +1,12 @@
 using Azure;
 using Azure.Data.Tables;
+using System.Text.Json;
 
 public class Note : ITableEntity
 {
 
     public Note()
     {
-        PartitionKey = partitionKey;
         PartitionKey = partitionKey;
         Id = string.Empty;
         Title = string.Empty;
@@ -16,7 +16,7 @@ public class Note : ITableEntity
     }
     const string partitionKey = "NotePartitionKey";
     public string PartitionKey { get; set; }
-    public string RowKey { get; set; } = string.Empty;
+    public string RowKey { get { return Id; } set { Id = value; } }
     public DateTimeOffset? Timestamp { get; set; }
     public ETag ETag { get; set; }
     public string Id { get; set; }

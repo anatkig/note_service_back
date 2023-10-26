@@ -21,7 +21,7 @@ public class NotesController : ControllerBase
 
     // GET: api/notes/{id}
     [HttpGet("{id}")]
-    public IActionResult Get(string id)
+    public IActionResult GetNoteById(string id)
     {
         var note = _noteService.GetNoteById(id);
         if (note == null)
@@ -33,7 +33,7 @@ public class NotesController : ControllerBase
 
     // POST: api/notes
     [HttpPost]
-    public IActionResult Create(Note note)
+    public IActionResult CreateNote([FromBody] Note note)
     {
         bool noteExists = _noteService.NoteExists(note.Title);
 
@@ -43,7 +43,7 @@ public class NotesController : ControllerBase
         }
 
         _noteService.CreateNote(note);
-        return CreatedAtAction(nameof(Get), new { id = note.Id }, note);
+        return CreatedAtAction(nameof(GetNoteById), new { id = note.Id }, note);
     }
 
     // PUT: api/notes/{id}
